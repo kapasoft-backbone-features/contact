@@ -1,0 +1,86 @@
+[
+	{
+		"id": "chili-con-carne",
+		"url": "chili-con-carne",
+		"name": "Chili con carne",
+		"category": "Entreés",
+		"imagepath": "chili-con-carne.jpg"
+	},
+	{
+		"id": "cheeseburger",
+		"url": "cheeseburger",
+		"name": "Cheeseburger",
+		"category": "Entreés",
+		"imagepath": "cheeseburger.jpg"
+	},
+	{
+		"id": "pizza",
+		"url": "pizza",
+		"name": "Pizza",
+		"category": "Entreés",
+		"imagepath": "pizza.jpg"
+	},
+	{
+		"id": "caesar-salad",
+		"url": "caesar-salad",
+		"name": "Caesar salad",
+		"category": "Salads",
+		"imagepath": "caesar-salad.jpg"
+	},
+	{
+		"id": "garden-salad",
+		"url": "garden-salad",
+		"name": "Garden salad",
+		"category": "Salads",
+		"imagepath": "garden-salad.jpg"
+	},
+	{
+		"id": "tomato-salad",
+		"url": "tomato-salad",
+		"name": "Tomato salad",
+		"category": "Salads",
+		"imagepath": "tomato-salad.jpg"
+	},
+	{
+		"id": "mashed-potatoes",
+		"url": "mashed-potatoes",
+		"name": "Mashed potatoes",
+		"category": "Sides",
+		"imagepath": "mashed-potatoes.jpg"
+	},
+	{
+		"id": "green-beans",
+		"url": "green-beans",
+		"name": "Green beans",
+		"category": "Sides",
+		"imagepath": "green-beans.jpg"
+	},
+	{
+		"id": "carrots",
+		"url": "carrots",
+		"name": "Carrots",
+		"category": "Sides",
+		"imagepath": "carrots.jpg"
+	},
+	{
+		"id": "cheesecake",
+		"url": "cheesecake",
+		"name": "Cheesecake",
+		"category": "Desserts",
+		"imagepath": "cheesecake.jpg"
+	},
+	{
+		"id": "brownie",
+		"url": "brownie",
+		"name": "Brownie",
+		"category": "Desserts",
+		"imagepath": "brownie.jpg"
+	},
+	{
+		"id": "spaghetti-and-meatballs",
+		"url": "spaghetti-and-meatballs",
+		"name": "Spaghetti and meatballs",
+		"category": "Entreés",
+		"imagepath": "spaghetti-and-meatballs.jpg"
+	}
+]

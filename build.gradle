@@ -1,0 +1,112 @@
+
+configurations {
+        sshAntTask
+ }
+
+dependencies {
+        sshAntTask 'org.apache.ant:ant-jsch:1.7.1', 'jsch:jsch:0.1.29'
+ }
+
+// Pull the plugin from Maven Central
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.eriwen:gradle-js-plugin:1.5.0'
+    }
+}
+
+// Invoke the plugin
+apply plugin: 'js'
+apply plugin:'base'
+
+def appName = "contact"
+def version = "0.0.1"
+def jsSrcDir = 'public/js'
+def buildDir = 'public/build'
+
+javascript.source {
+    dev {
+        js {
+            srcDir jsSrcDir
+            include "*.js"
+            exclude "*.min.js"
+        }
+    }
+    prod {
+        js {
+            srcDir jsSrcDir
+            include "*.min.js"
+        }
+    }
+}
+
+task cleanDelete(type: Delete) {
+	delete buildDir
+}
+
+task init(type: Directory, dependsOn: 'cleanDelete', description: 'Creates artifact output directories') {
+	outputs.dir(buildDir)
+	doLast {
+		file(buildDir).mkdirs()
+	}
+}
+
+task combineSrc(dependsOn: 'cleanDelete', type: com.eriwen.gradle.js.tasks.CombineJsTask) {
+    source = ["${projectDir}/public/js/models/contact_model.js", "${projectDir}/public/js/views/contact_form_view.js", "${projectDir}/public/js/app.js" ]
+    dest = file("${projectDir}/public/build/${appName}-src.js")
+}
+
+task appendJQuery(dependsOn: 'combineSrc') {
+    doLast{
+        String backboneSrc = file(new File("${projectDir}/public/build/${appName}-src.js")).text
+        new File("${projectDir}/public/build/${appName}-jqueryWraped.js").withWriter{ out ->
+            out << "(function(\$){" + backboneSrc + "})(jQuery); \n"
+        }
+    }
+}
+
+task combineTemplates(dependsOn: 'appendJQuery', type: com.eriwen.gradle.js.tasks.CombineJsTask) {
+    source = ["${projectDir}/public/templates/templates.js","${projectDir}/public/build/${appName}-jqueryWraped.js" ]
+    dest = file("${projectDir}/public/build/${appName}-all-dev.js")
+}
+
+minifyJs {
+    source = combineTemplates
+    dest = file("${projectDir}/public/build/${appName}-minified.js")
+    closure {
+        warningLevel = 'QUIET'
+    }
+}
+
+task appendVersion(dependsOn: 'minifyJs'){
+    doLast{
+        String allJs = file("${projectDir}/public/build/${appName}-minified.js").text
+        new File("${projectDir}/public/build/${appName}-${version}.min.js").withWriter{ out ->
+            out << "/* Feature: ${appName}(Ver: ${version}) */ \n" + allJs
+        }
+    }
+}
+
+gzipJs {
+    source = minifyJs
+    dest = file("${projectDir}/public/build/${appName}-${version}.min.zip.js")
+}
+
+task uploadJs (dependsOn: 'appendVersion'){
+    doLast(){
+        ant.taskdef(name: 'scp', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp', classpath: configurations.sshAntTask.asPath)
+        //@ToDo have to create the directory at the remote server. Currently done manually
+        ant.scp(file: "${projectDir}/public/build/${appName}-${version}.min.js", todir: "root@kapasoft.com:/home/public-repos/backbone/${appName}/${version}", password:"Rd5eU1/z")
+    }
+}
+
+task uploadJsOnly () {
+    doLast(){
+        ant.taskdef(name: 'scp', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp', classpath: configurations.sshAntTask.asPath)
+        //@ToDo have to create the directory at the remote server. Currently done manually
+        ant.scp(file: "${projectDir}/public/build/${appName}-${version}.min.js", todir: "root@kapasoft.com:/home/public-repos/backbone/${appName}/${version}", password:"Rd5eU1/z")
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "restaurant",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "~3.1.0",
+    "hbs": "~2.0.2",
+    "socket.io": "*",
+    "socket.io-client": "*",
+    "sugar":"*"
+  }
+}
