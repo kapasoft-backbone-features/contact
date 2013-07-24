@@ -40,7 +40,7 @@ var ContactView = Backbone.View.extend({
             email: this.$el.find('.contact-form input[name="email"]').val(),
             subject: this.$el.find('.contact-form input[name="subject"]').val(),
             id:null,//so that reusing this function, it gets its own unique id before going to server
-            message: this.$el.find('.contact-form input[name="message"]').val(),
+            message: this.$el.find('.contact-form textarea[name="message"]').val(),
             type:'postContactUs'
         });
     }

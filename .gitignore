@@ -1,0 +1,3 @@
+# Ignore config files
+.gradle/*
+.idea/*
