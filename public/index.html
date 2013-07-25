@@ -1,6 +1,28 @@
 <html>
 <head>
 	<title>Off the backbone</title>
+    <script>
+        var CONTACT = (function () {
+            return {
+                response: 'Thank You. We will contact you soon',
+                button: {
+                        elemText: 'Start Now',
+                        elemClass: 'btn'
+                    },
+                name: {
+                    elemText: "test name"
+                },
+                subject: {
+                    elemText: "subbbb",
+                    elemType: 'hidden'
+                },
+                email:{
+                  elemText:"emdadfsa"
+                }
+
+            };
+        }());
+    </script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script>
         var socket = io.connect('/');
@@ -18,7 +40,7 @@
     <!--<script type="text/javascript" src="js/app.js"></script>-->
 
     <!--<script type="text/javascript" src="http://kapasoft.com/repos/backbone/contact/main/contact.min.js"></script>-->
-    <script type="text/javascript" src="build/contact-0.0.1.min.js"></script>
+    <script type="text/javascript" src="build/contact-0.0.2.min.js?v=1"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />

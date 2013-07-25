@@ -1,25 +1,25 @@
 <div class="contact-form" novalidate="">
     <div class="controls controls-row">
-        <div class="control-group span6">
-            <input class="span12" name="name" placeholder="your name" type="text">
+        <div class="control-group">
+            <input class="{{name.elemClass}}" name="name" placeholder="{{name.elemText}}" type="{{name.elemType}}">
         </div>
-        <div class="control-group span6">
-            <input class="span12" name="email" placeholder="your email" type="email">
-        </div>
-    </div>
-    <div class="controls controls-row">
-        <div class="control-group span12">
-            <input class="span12" name="subject" placeholder="subject" type="text">
+        <div class="control-group">
+            <input class="{{email.elemClass}}" name="email" placeholder="{{email.elemText}}" type="{{email.elemType}}">
         </div>
     </div>
     <div class="controls controls-row">
-        <div class="control-group span12">
-            <textarea class="span12" name="message" placeholder="please, leave your message here... " rows="5"></textarea>
+        <div class="control-group">
+            <input class="{{subject.elemClass}}" name="subject" placeholder="{{subject.elemText}}" type="{{subject.elemType}}">
         </div>
     </div>
     <div class="controls controls-row">
-        <div class="control-group span12">
-            <button class="btn btn-primary" name="submitButton" type="submit">Send Message</button>
+        <div class="control-group ">
+            <textarea class="{{message.elemClass}}" name="message" placeholder="{{message.elemText}}" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="controls controls-row">
+        <div class="control-group">
+            <button class="{{button.elemClass}}" id="contactSubmit_B" name="submitButton" type="{{button.elemType}}">{{button.elemText}}</button>
         </div>
     </div>
 </div>

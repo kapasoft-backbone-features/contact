@@ -1,10 +1,11 @@
 var ContactView = Backbone.View.extend({
 
-    render: function(){
-        this.$el.html(Handlebars.templates.contact());
+    render: function(config){
+
+        this.$el.html(Handlebars.templates.contact(config));
 
         this.delegateEvents({//ensures DOM elements always get events they suppose to
-            'click .contact-form .btn-primary': 'save'
+            'click .contact-form #contactSubmit_B' : 'save'
         });
         return this;
     },
@@ -19,6 +20,7 @@ var ContactView = Backbone.View.extend({
         this.model.set({
             name: this.$el.find('.contact-form input[name="name"]').val(),
             email: this.$el.find('.contact-form input[name="email"]').val(),
+            website: window.location.hostname,
             subject: this.$el.find('.contact-form input[name="subject"]').val(),
             id:null,//so that reusing this function, it gets its own unique id before going to server
             message: this.$el.find('.contact-form textarea[name="message"]').val(),

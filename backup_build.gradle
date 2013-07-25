@@ -1,6 +1,4 @@
 
-
-
 configurations {
         sshAntTask
  }
@@ -25,7 +23,6 @@ apply plugin: 'js'
 apply plugin:'base'
 
 def appName = "contact"
-def appNameCap = "CONTACT"
 def version = "0.0.2"
 def jsSrcDir = 'public/js'
 def buildDir = 'public/build'
@@ -58,7 +55,7 @@ task init(type: Directory, dependsOn: 'cleanDelete', description: 'Creates artif
 }
 
 task combineSrc(dependsOn: 'cleanDelete', type: com.eriwen.gradle.js.tasks.CombineJsTask) {
-    source = ["${projectDir}/public/js/models/${appName}_model.js", "${projectDir}/public/js/views/${appName}_form_view.js", "${projectDir}/public/js/app.js" ]
+    source = ["${projectDir}/public/js/models/contact_model.js", "${projectDir}/public/js/views/contact_form_view.js", "${projectDir}/public/js/app.js" ]
     dest = file("${projectDir}/public/build/${appName}-src.js")
 }
 
@@ -66,22 +63,15 @@ task appendJQuery(dependsOn: 'combineSrc') {
     doLast{
         String backboneSrc = file(new File("${projectDir}/public/build/${appName}-src.js")).text
         new File("${projectDir}/public/build/${appName}-jqueryWraped.js").withWriter{ out ->
-            out << "var ${appNameCap} = ${appNameCap} || {};(function(\$,${appNameCap}){" + backboneSrc + "})(jQuery,${appNameCap}); \n"
+            out << "(function(\$){" + backboneSrc + "})(jQuery); \n"
         }
     }
-}
-
-task compileTemplates (type:Exec) {
-    executable "bash"
-    args "-c", "handlebars public/templates/${appName}.handlebars -f public/templates/templates.js"
 }
 
 task combineTemplates(dependsOn: 'appendJQuery', type: com.eriwen.gradle.js.tasks.CombineJsTask) {
     source = ["${projectDir}/public/templates/templates.js","${projectDir}/public/build/${appName}-jqueryWraped.js" ]
     dest = file("${projectDir}/public/build/${appName}-all-dev.js")
 }
-
-combineTemplates.dependsOn compileTemplates
 
 minifyJs {
     source = combineTemplates
@@ -120,4 +110,3 @@ task uploadJsOnly () {
         ant.scp(file: "${projectDir}/public/build/${appName}-${version}.min.js", todir: "root@kapasoft.com:/home/public-repos/backbone/${appName}/${version}", password:"Rd5eU1/z")
     }
 }
-
